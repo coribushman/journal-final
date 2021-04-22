@@ -12,6 +12,10 @@ const tagSchema = new mongoose.Schema({
   title: String,
   color: String,
   entries: Array,
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  },
 });
 
 // Create a model for journal tags
@@ -25,6 +29,7 @@ router.post('/', validUser, async (req, res) => {
     title: req.body.title,
     color: req.body.color,
     entries: req.body.entries,
+    user: req.user,
   });
   try {
     await tag.save();
@@ -38,9 +43,10 @@ router.post('/', validUser, async (req, res) => {
 // Get a list of all of the journal tags
 // router.get('/api/tags', async (req, res) => {
 router.get('/', validUser, async (req, res) => {
-
   try {
-    let tags = await Tag.find();
+    let tags = await Tag.find({
+      user: req.user
+    });
     res.send(tags);
   } catch (error) {
     //console.log(error);
@@ -50,10 +56,11 @@ router.get('/', validUser, async (req, res) => {
 
 // Delete an tag.
 // router.delete('/api/tags/:id', async (req, res) => {
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validUser, async (req, res) => {
   try {
     await Tag.deleteOne({
-      id: req.params.id
+      id: req.params.id,
+      user: req.user
     });
     res.sendStatus(200);
   } catch (error) {
@@ -64,10 +71,11 @@ router.delete('/:id', async (req, res) => {
 
 // Edit a tag.
 // router.put('/api/tags/:id', async (req, res) => {
-router.put('/:id', async (req, res) => {
+router.put('/:id', validUser, async (req, res) => {
   try {
     let tag = await Tag.findOne({
-      id: req.params.id
+      id: req.params.id,
+      user: req.user
     });
     tag.title = req.body.title;
     tag.color = req.body.color;

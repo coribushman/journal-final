@@ -3,10 +3,7 @@
   <div id="menu">
     <div class="empty"></div>
     <div id="dashboard" class="menu-item">
-      <router-link to="/dashboard">Dashboard</router-link>
-    </div>
-    <div id="home" class="menu-item">
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Dashboard</router-link>
     </div>
     <div id="create-entry" class="menu-item">
       <router-link to="/create-entry">Entry</router-link>
@@ -17,7 +14,8 @@
   </div>
   <router-view/>
   <div class="footer">
-    <a href='https://github.com/coribushman/cp3-journal'>Github</a>
+    <a href='https://github.com/coribushman/journal-final'>Github</a>
+    <p>Hours spent: 8</p>
   </div>
 </div>
 </template>
@@ -69,11 +67,13 @@ export default {
    width: 100%;
    height: 2.5rem;
    background-color: #262626;
+   color: white;
+   text-decoration: none;
  }
 
  .footer a {
    color: white;
-   text-decoration: none;
+   padding-right: 30px;
  }
 
 

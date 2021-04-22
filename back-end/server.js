@@ -39,6 +39,6 @@ const entries = require("./entries.js");
 app.use("/api/entries", entries.routes);
 
 const tags = require("./tags.js");
-app.use("/api/tags", entries.routes);
+app.use("/api/tags", tags.routes);
 
 app.listen(3001, () => console.log('Server listening on port 3001!'));

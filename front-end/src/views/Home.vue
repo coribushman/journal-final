@@ -1,14 +1,17 @@
 <template>
 <div class="wrapper">
-
-<button @click="logout">Logout</button>
-
   <div class="journal">
+  <div class="logout">
+    <p>Current User: {{username}}</p>
+    <button @click="logout">Logout</button>
+  </div>
+  <hr>
     <div class="tags">
       <div class="tag" v-for="tag in tags" :key="tag.id">
         <div v-bind:style="{'color':tag.color}">{{tag.title}}</div>
       </div>
     </div>
+    <hr>
 
     <div class="entries">
     <div class="entry" v-for="entry in entries" :key="entry.id">
@@ -68,10 +71,12 @@
       entries: [],
       editedEntry: {},
       tagDict: {},
+      username: ""
     }
   },
   created() {
     this.getData();
+    this.username = this.$root.$data.user.username;
   },
   computed: {
     user() {
@@ -248,5 +253,16 @@ button {
   border: 2px solid black;
   width: fit-content;
   padding: 2px;
+}
+
+.logout{
+  width: 100vw;
+  align-content: right;
+  margin-left: 50px;
+}
+
+
+hr {
+  width: 100%;
 }
 </style>

@@ -1,17 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();            //needed?
-
-// const app = express();
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({
-//   extended: false
-// }));
-//
-// // connect to the database
-// mongoose.connect('mongodb://localhost:27017/journal', {
-//   useNewUrlParser: true
-// });
+const router = express.Router();
 
 const users = require("./users.js");
 const User = users.model;
@@ -71,7 +60,8 @@ router.get('/', validUser, async (req, res) => {
 router.delete('/:id', validUser, async (req, res) => {
   try {
     await Entry.deleteOne({
-      id: req.params.id
+      id: req.params.id,
+      user: req.user
     });
     res.sendStatus(200);
   } catch (error) {
@@ -81,10 +71,11 @@ router.delete('/:id', validUser, async (req, res) => {
 });
 
 // Edit an entry.
-router.put('/:id', async (req, res) => {
+router.put('/:id', validUser, async (req, res) => {
   try {
     let entry = await Entry.findOne({
-      id: req.params.id
+      id: req.params.id,
+      user: req.user
     });
     entry.title = req.body.title;
     entry.text = req.body.text;

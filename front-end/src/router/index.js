@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -24,7 +24,7 @@ const routes = [
     component: CreateTag
   },
   {
-   path: '/dashboard',
+   path: '/',
    name: 'Dashboard',
    component: Dashboard
  }
