@@ -1,3 +1,5 @@
+# view website at: final.corinally.com
+
 # journal
 
 ## Project setup
